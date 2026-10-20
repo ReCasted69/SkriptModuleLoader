@@ -16,9 +16,8 @@ public final class SkriptModuleLoader extends JavaPlugin {
     private File skriptTargetFolder;
 
     @Override
-    public 
+    public void onEnable() {
         saveDefaultConfig();
-
         getLogger().info("=================================");
         getLogger().info("Starting SkriptModuleLoader v" + getDescription().getVersion());
         getLogger().info("=================================");
@@ -29,21 +28,16 @@ public final class SkriptModuleLoader extends JavaPlugin {
             return;
         }
 
-
-
         String externalFolderName = getConfig().getString("settings.folder-name", "modules");
         String skriptBasePath = getConfig().getString("settings.skript-path", "plugins/Skript/scripts");
 
         skriptBasePath = skriptBasePath.replace("\\", "/");
 
-       
         externalModulesFolder = new File(getDataFolder(), externalFolderName);
         skriptTargetFolder = new File(skriptBasePath, externalFolderName);
 
         getLogger().info("External modules folder: " + externalModulesFolder.getAbsolutePath());
         getLogger().info("Skript target folder: " + skriptTargetFolder.getAbsolutePath());
-
-
 
         if (!externalModulesFolder.exists()) {
             boolean created = externalModulesFolder.mkdirs();
@@ -55,7 +49,6 @@ public final class SkriptModuleLoader extends JavaPlugin {
             getLogger().info("Created Skript modules folder: " + created);
         }
 
-
         extractBundledModules();
         copyExternalModules();
 
@@ -64,7 +57,6 @@ public final class SkriptModuleLoader extends JavaPlugin {
             getLogger().info("If they don't load automatically, run: /sk reload modules");
         }, 100L);
     }
-
 
     private void extractBundledModules() {
 
@@ -103,7 +95,6 @@ public final class SkriptModuleLoader extends JavaPlugin {
             }
         }
     }
-
 
     private void copyExternalModules() {
 
